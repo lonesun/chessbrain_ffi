@@ -3,7 +3,7 @@ use std::io;
 pub fn send(writer: &mut dyn io::Write, command: &str) -> io::Result<()> {
     writeln!(writer, "{}", command)?;
     // writer.write_all(command.as_bytes())?;
-    writer.flush()
+    writer.flush() // Produces its own io::Result<()>
 }
 
 pub fn receive(reader: &mut dyn io::BufRead, token: &str) -> io::Result<String> {
