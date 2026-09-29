@@ -21,6 +21,7 @@ pub fn receive(reader: &mut dyn io::BufRead, token: &str) -> io::Result<String> 
 use cxx::bridge;
 use cxx::{CxxString, CxxVector};
 
+/*
 trait CxxConvertible {
     fn to_cxx_string(&self) -> CxxString;
 }
@@ -38,3 +39,4 @@ fn pipe(input: &CxxString) -> CxxVector<u8> {
     }
     output
 }
+*/
