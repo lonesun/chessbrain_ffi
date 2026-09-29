@@ -1,6 +1,7 @@
 use cxx::bridge;
 use cxx::{CxxString, CxxVector};
 
+#[allow(unused_doc_comments)]
 /**
  * Q: How is a normal Rust `String`` similar to a `CxxString`?
  * A: Both represent sequences of UTF-8 encoded bytes, but `CxxString` is used for interoperability with C++ code.
