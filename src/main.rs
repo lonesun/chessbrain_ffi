@@ -17,6 +17,9 @@ fn main() -> std::io::Result<()> {
         });
     })();
 
+    if result.is_err() {
+        let _ = stockfish_process.kill();
+    }
     stockfish_process.wait()?;
     result
 }
