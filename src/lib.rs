@@ -1,3 +1,23 @@
+use std::io;
+
+fn send(writer: &mut dyn io::Write, command: &str) -> io::Result<()> {
+    writeln!(writer, "{}", command)?;
+    // writer.write_all(command.as_bytes())?;
+    writer.flush()
+}
+
+fn receive(reader: &mut dyn io::BufRead) -> io::Result<String> {
+    loop {
+        let mut line = String::new();
+        if reader.read_line(&mut line)? == 0 {
+            return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "End of input"));
+        }
+        if line.split_whitespace().next() == Some(token) {
+            return Ok(line);
+        }
+    }
+}
+
 use cxx::bridge;
 use cxx::{CxxString, CxxVector};
 
