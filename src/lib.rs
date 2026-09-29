@@ -16,28 +16,3 @@ pub fn receive(reader: &mut dyn io::BufRead, token: &str) -> io::Result<String> 
         }
     }
 }
-
-#[allow(unused_imports)]
-use cxx::bridge;
-#[allow(unused_imports)]
-use cxx::{CxxString, CxxVector};
-
-/*
-trait CxxConvertible {
-    fn to_cxx_string(&self) -> CxxString;
-}
-
-impl CxxConvertible for String {
-    fn to_cxx_string(&self) -> CxxString {
-        CxxString::from(self.as_str())
-    }
-}
-
-fn pipe(input: &CxxString) -> CxxVector<u8> {
-    let mut output = CxxVector::new();
-    for &byte in input.as_bytes() {
-        output.pin_mut().push(byte);
-    }
-    output
-}
-*/
