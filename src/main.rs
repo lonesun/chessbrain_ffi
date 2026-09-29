@@ -25,6 +25,7 @@ fn main() -> std::io::Result<()> {
         });
         println!("Black's reply: {}", best_move.unwrap_or("none"));
         send(&mut input, "quit")?;
+        Ok(())
     })();
 
     if result.is_err() {
