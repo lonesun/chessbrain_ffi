@@ -37,7 +37,7 @@ trait CxxConvertible {
 
 impl CxxConvertible for String {
     fn to_cxx_string(&self) -> CxxString {
-        CxxString::from(self)
+        CxxString::from(self.as_str())
     }
 }
 
