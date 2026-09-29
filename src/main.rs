@@ -1,7 +1,7 @@
 use ffi::{send, receive};
 
 fn main() -> std::io::Result<()> {
-    let mut stockfish_process = std::process::Command::new("../Stockfish/src/stockfish")
+    let mut stockfish_process = std::process::Command::new("Stockfish/stockfish-windows-x86-64-universal.exe")
         .stdin(std::process::Stdio::piped())
         .stdout(std::process::Stdio::piped())
         .stderr(std::process::Stdio::piped())
