@@ -44,7 +44,7 @@ impl CxxConvertible for String {
 fn pipe(input: &CxxString) -> CxxVector<u8> {
     let mut output = CxxVector::new();
     for &byte in input.as_bytes() {
-        output.push(byte);
+        output.pin_mut().push(byte);
     }
     output
 }
