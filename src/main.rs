@@ -1,3 +1,5 @@
+use ffi::{send, receive};
+
 fn main() -> std::io::Result<()> {
     let mut stockfish_process = std::process::Command::new("../Stockfish/src/stockfish")
         .stdin(std::process::Stdio::piped())

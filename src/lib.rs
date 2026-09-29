@@ -1,12 +1,12 @@
 use std::io;
 
-fn send(writer: &mut dyn io::Write, command: &str) -> io::Result<()> {
+pub fn send(writer: &mut dyn io::Write, command: &str) -> io::Result<()> {
     writeln!(writer, "{}", command)?;
     // writer.write_all(command.as_bytes())?;
     writer.flush()
 }
 
-fn receive(reader: &mut dyn io::BufRead) -> io::Result<String> {
+pub fn receive(reader: &mut dyn io::BufRead, token: &str) -> io::Result<String> {
     loop {
         let mut line = String::new();
         if reader.read_line(&mut line)? == 0 {
