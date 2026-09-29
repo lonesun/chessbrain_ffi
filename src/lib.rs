@@ -18,7 +18,9 @@ pub fn receive(reader: &mut dyn io::BufRead, token: &str) -> io::Result<String> 
     }
 }
 
+#[allow(unused_imports)]
 use cxx::bridge;
+#[allow(unused_imports)]
 use cxx::{CxxString, CxxVector};
 
 /*
