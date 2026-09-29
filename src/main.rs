@@ -1,4 +1,4 @@
-use ffi::{send, receive};
+use chessbrain_ffi::{send, receive};
 
 fn main() -> std::io::Result<()> {
     let mut stockfish_process = std::process::Command::new("Stockfish/stockfish-windows-x86-64-universal.exe")
