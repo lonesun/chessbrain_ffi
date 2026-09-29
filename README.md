@@ -18,3 +18,5 @@ fn main() -> std::io::Result<()> {
     Ok(())
 }
 ```
+
+This is basically fragile of course, since not everyone is running Windows. The above path assumes a Windows environment (since my sketchdev setup is on Windows) and will need to be adjusted for other operating systems. You can just change the path to whatever you want, but I can't currently guarantee that it will work correctly on non-Windows systems. The above snippet can be found in `main.rs`.
