@@ -15,6 +15,7 @@ fn main() -> std::io::Result<()> {
         let best_move = reply.split_whitespace().nth(1).ok_or_else(|| {
             std::io::Error::new(std::io::ErrorKind::InvalidData, "Failed to parse best move")
         });
+        send(&mut input, "quit")?;
     })();
 
     if result.is_err() {
