@@ -7,14 +7,14 @@ fn main() -> std::io::Result<()> {
         let mut input = engine.stockfish_process.stdin.as_mut().expect("Failed to take stdin");
         let mut output = std::io::BufReader::new(engine.stockfish_process.stdout.take().expect("Failed to take stdout"));
 
-        send(&mut input, "position startpos moves e2e4")?;
-        send(&mut input, "go movetime 1000")?;
-        let reply = receive(&mut output, "bestmove")?;
+        engine.send("position startpos moves e2e4")?;
+        engine.send("go movetime 1000")?;
+        let reply = engine.receive("bestmove")?;
         let best_move = reply.split_whitespace().nth(1).ok_or_else(|| {
             std::io::Error::new(std::io::ErrorKind::InvalidData, "Failed to parse best move")
         });
         println!("Black's reply: {}", best_move.unwrap_or("none"));
-        send(&mut input, "quit")?;
+        engine.send("quit")?;
         Ok(())
     })();
 
