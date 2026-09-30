@@ -3,10 +3,10 @@ use std::io;
 pub struct Engine;
 
 impl Engine {
-pub fn send(writer: &mut dyn io::Write, command: &str) -> io::Result<()> {
-    writeln!(writer, "{}", command)?;
-    writer.flush() // Produces its own io::Result<()>
-}
+    pub fn send(writer: &mut dyn io::Write, command: &str) -> io::Result<()> {
+        writeln!(writer, "{}", command)?;
+        writer.flush() // Produces its own io::Result<()>
+    }
 
 pub fn receive(reader: &mut dyn io::BufRead, token: &str) -> io::Result<String> {
     loop {
