@@ -1,11 +1,7 @@
-use chessbrain_ffi::{send, receive};
+use chessbrain_ffi::{Engine};
 
 fn main() -> std::io::Result<()> {
-    let mut stockfish_process = std::process::Command::new("Stockfish/stockfish-windows-x86-64-universal.exe")
-        .stdin(std::process::Stdio::piped())
-        .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::piped())
-        .spawn()?;
+    let mut engine = Engine::start("Stockfish/stockfish-windows-x86-64-universal.exe")?;
 
     let result = (|| -> std::io::Result<()> {
         let mut input = stockfish_process.stdin.take().expect("Failed to take stdin");
