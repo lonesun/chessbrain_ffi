@@ -1,4 +1,5 @@
-use std::io;
+use std::{io, process};
+use std::io::{BufRead, Write};
 
 pub struct Engine {
 	stockfish_process: std::process::Child,
