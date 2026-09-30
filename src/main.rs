@@ -4,8 +4,8 @@ fn main() -> std::io::Result<()> {
     let mut engine = Engine::start("Stockfish/stockfish-windows-x86-64-universal.exe")?;
 
     let result = (|| -> std::io::Result<()> {
-        let mut input = engine.stockfish_process.stdin.as_mut().expect("Failed to take stdin");
-        let mut output = std::io::BufReader::new(engine.stockfish_process.stdout.take().expect("Failed to take stdout"));
+        let input = engine.stockfish_process.stdin.as_mut().expect("Failed to take stdin");
+        let output = std::io::BufReader::new(engine.stockfish_process.stdout.take().expect("Failed to take stdout"));
 
         engine.send("position startpos moves e2e4")?;
         engine.send("go movetime 1000")?;
