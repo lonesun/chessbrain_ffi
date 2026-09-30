@@ -16,7 +16,7 @@ pub fn receive(reader: &mut dyn io::BufRead, token: &str) -> io::Result<String> 
         }
         if line.split_whitespace().next() == Some(token) {
             return Ok(line);
+            }
         }
     }
-}
 }
