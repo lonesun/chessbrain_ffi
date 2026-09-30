@@ -4,8 +4,8 @@ fn main() -> std::io::Result<()> {
     let mut engine = Engine::start("Stockfish/stockfish-windows-x86-64-universal.exe")?;
 
     let result = (|| -> std::io::Result<()> {
-        let mut input = stockfish_process.stdin.take().expect("Failed to take stdin");
-        let mut output = std::io::BufReader::new(stockfish_process.stdout.take().expect("Failed to take stdout"));
+        let mut input = engine.stockfish_process.stdin.as_mut().expect("Failed to take stdin");
+        let mut output = std::io::BufReader::new(engine.stockfish_process.stdout.take().expect("Failed to take stdout"));
 
         /* Initialise communication with Stockfish */
         send(&mut input, "uci")?; // UCI = Universal Chess Interface
@@ -25,8 +25,8 @@ fn main() -> std::io::Result<()> {
     })();
 
     if result.is_err() {
-        let _ = stockfish_process.kill();
+        let _ = engine.stockfish_process.kill();
     }
-    stockfish_process.wait()?;
+    engine.stockfish_process.wait()?;
     result
 }
