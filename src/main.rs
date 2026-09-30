@@ -7,12 +7,6 @@ fn main() -> std::io::Result<()> {
         let mut input = engine.stockfish_process.stdin.as_mut().expect("Failed to take stdin");
         let mut output = std::io::BufReader::new(engine.stockfish_process.stdout.take().expect("Failed to take stdout"));
 
-        /* Initialise communication with Stockfish */
-        send(&mut input, "uci")?; // UCI = Universal Chess Interface
-        receive(&mut output, "uciok")?; // Acknowledgement from Stockfish
-        send(&mut input, "isready")?; // Check if Stockfish is ready
-        receive(&mut output, "readyok")?; // Readiness confirmation
-
         send(&mut input, "position startpos moves e2e4")?;
         send(&mut input, "go movetime 1000")?;
         let reply = receive(&mut output, "bestmove")?;

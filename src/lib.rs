@@ -14,12 +14,16 @@ impl Engine {
 			.stderr(std::process::Stdio::piped())
 			.spawn()?;
 
+		let output = io::BufReader::new(stockfish_process.stdout.take().expect("Failed to take stdout"));
+
 		let mut engine = Self { stockfish_process, output };
 
-		engine.send("uci")?;
-		engine.receive("uciok")?;
-		engine.send("isready")?;
-		engine.receive("readyok")?;
+        /* Initialise communication with Stockfish */
+        engine.send("uci")?; // UCI = Universal Chess Interface
+        engine.receive("uciok")?; // Acknowledgement from Stockfish
+        engine.send("isready")?; // Check if Stockfish is ready
+        engine.receive("readyok")?; // Readiness confirmation
+
 
 		Ok(engine)
 	}
