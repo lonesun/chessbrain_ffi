@@ -3,15 +3,16 @@ use std::io;
 pub struct Engine;
 
 impl Engine {
-    pub fn send(writer: &mut dyn io::Write, command: &str) -> io::Result<()> {
-        writeln!(writer, "{}", command)?;
-        writer.flush() // Produces its own io::Result<()>
+    pub fn send(&mut self, command: &str) -> io::Result<()> {
+        let input = self.stockfish_process.stdin.as_mut().expect("Failed to take stdin");
+	    writeln!(input, "{}", command)?;
+        input.flush() // Produces its own io::Result<()>
     }
 
-    pub fn receive(reader: &mut dyn io::BufRead, token: &str) -> io::Result<String> {
+    pub fn receive(&mut self, token: &str) -> io::Result<String> {
         loop {
             let mut line = String::new();
-            if reader.read_line(&mut line)? == 0 {
+            if self.output.read_line(&mut line)? == 0 {
                 return Err(io::Error::new(io::ErrorKind::UnexpectedEof, "End of input"));
             }
             if line.split_whitespace().next() == Some(token) {
