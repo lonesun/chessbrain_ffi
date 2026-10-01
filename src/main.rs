@@ -3,6 +3,7 @@ use chessbrain_ffi::{Engine};
 fn main() -> std::io::Result<()> {
     let mut engine = Engine::start("Stockfish/stockfish-windows-x86-64-universal.exe")?;
 
+    loop {
     let result = (|| -> std::io::Result<()> {
         engine.send("position startpos moves e2e4")?;
         engine.send("go movetime 1000")?;
@@ -19,5 +20,6 @@ fn main() -> std::io::Result<()> {
         let _ = engine.stockfish_process.kill();
     }
     engine.stockfish_process.wait()?;
-    result
+    result?;
+    }
 }
