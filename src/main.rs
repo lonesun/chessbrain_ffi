@@ -5,6 +5,8 @@ fn main() -> std::io::Result<()> {
     let mut history = vec!["e2e4"];
 
     loop {
+		let timeout = std::time::Duration::from_millis(50);
+		if crossterm::event::poll(timeout)? {
 		let result = (|| -> std::io::Result<()> {
 			engine.send(&format!("position startpos moves {}", history.join(" ")))?;
 			engine.send("go movetime 1000")?;
@@ -27,5 +29,6 @@ fn main() -> std::io::Result<()> {
 		}
 		engine.stockfish_process.wait()?;
 		result?;
+		}
     }
 }
