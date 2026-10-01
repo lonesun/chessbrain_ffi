@@ -7,28 +7,28 @@ fn main() -> std::io::Result<()> {
     loop {
 		let timeout = std::time::Duration::from_millis(50);
 		if crossterm::event::poll(timeout)? {
-		let result = (|| -> std::io::Result<()> {
-			engine.send(&format!("position startpos moves {}", history.join(" ")))?;
-			engine.send("go movetime 1000")?;
-			let reply = engine.receive("bestmove")?;
-			let best_move = reply.split_whitespace().nth(1).ok_or_else(|| {
-				std::io::Error::new(std::io::ErrorKind::InvalidData, "Failed to parse best move")
-			});
-			if let Ok(best_move) = best_move {
-				history.push(best_move);
-				println!("Black's reply: {}", best_move);
-			} else {
-				println!("Black's reply: none");
-			}
-			engine.send("quit")?;
-			Ok(())
-		})();
+			let result = (|| -> std::io::Result<()> {
+				engine.send(&format!("position startpos moves {}", history.join(" ")))?;
+				engine.send("go movetime 1000")?;
+				let reply = engine.receive("bestmove")?;
+				let best_move = reply.split_whitespace().nth(1).ok_or_else(|| {
+					std::io::Error::new(std::io::ErrorKind::InvalidData, "Failed to parse best move")
+				});
+				if let Ok(best_move) = best_move {
+					history.push(best_move);
+					println!("Black's reply: {}", best_move);
+				} else {
+					println!("Black's reply: none");
+				}
+				engine.send("quit")?;
+				Ok(())
+			})();
 
-		if result.is_err() {
-			let _ = engine.stockfish_process.kill();
-		}
-		engine.stockfish_process.wait()?;
-		result?;
+			if result.is_err() {
+				let _ = engine.stockfish_process.kill();
+			}
+			engine.stockfish_process.wait()?;
+			result?;
 		}
     }
 }
